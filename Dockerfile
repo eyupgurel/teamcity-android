@@ -1,6 +1,6 @@
-FROM jetbrains/teamcity-agent:2017.2.2
+FROM eyupgurel/teamcity-agent:2017.2.2
 
-MAINTAINER Eyüp Gürel
+MAINTAINER Eyüp Gürel <eyupgurel@gmail.com>
 
 ENV ANDROID_HOME="/opt/Android/Sdk" \
     ANDROID_NDK="/opt/Android/Ndk" \
@@ -157,20 +157,12 @@ RUN echo "patcher " && \
     yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
         "patcher;v4"
 
-# Copy sdk license agreement files.
-RUN mkdir -p "${ANDROID_HOME}/licenses"
-COPY sdk/licenses/* "${ANDROID_HOME}/licenses/"
-
 # Installing packages
 RUN apt-get update
 RUN apt-get -y upgrade
 
-RUN service docker start && service docker status
 
-RUN apt-get remove -y docker-ce=17.12.0~ce-0~ubuntu
-RUN curl -fsSL get.docker.com -o get-docker.sh
-RUN sh get-docker.sh
-RUN systemctl enable docker
-
-
+# Copy sdk license agreement files.
+RUN mkdir -p "${ANDROID_HOME}/licenses"
+COPY sdk/licenses/* "${ANDROID_HOME}/licenses/"
 
