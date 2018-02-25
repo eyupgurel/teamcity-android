@@ -164,3 +164,13 @@ COPY sdk/licenses/* "${ANDROID_HOME}/licenses/"
 # Installing packages
 RUN apt-get update
 RUN apt-get -y upgrade
+
+RUN service docker start && service docker status
+
+RUN apt-get remove -y docker-ce=17.12.0~ce-0~ubuntu
+RUN curl -fsSL get.docker.com -o get-docker.sh
+RUN sh get-docker.sh
+RUN systemctl enable docker
+
+
+
