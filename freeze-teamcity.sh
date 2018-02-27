@@ -8,7 +8,8 @@ docker container stop tmcs
 
 docker container stop tmcdb
 
-bash freeze-emulator.sh
+docker container update --restart no android-emulator
+docker container stop android-emulator
 
 docker container ls -a
 docker network ls
