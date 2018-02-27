@@ -9,7 +9,7 @@ docker container rm -f tmcs
 
 docker container rm -f tmcdb
 
-docker container rm -f  android-emulator
+bash destroy-emulator.sh
 
 #docker network rm sun
 
