@@ -166,3 +166,11 @@ RUN apt-get -y upgrade
 RUN mkdir -p "${ANDROID_HOME}/licenses"
 COPY sdk/licenses/* "${ANDROID_HOME}/licenses/"
 
+# Install ping utils
+RUN apt-get install -y iputils-ping
+
+# in order to run a mysql container inside this container we need to
+# 1) makedir for the mysqld volume
+ENV MYSQL_VOLUME_DIR="/opt/volume/mysql/"
+RUN mkdir -p "${MYSQL_VOLUME_DIR}"
+COPY schema/FantasyLeague-Schema-2018.02.08.sql "${MYSQL_VOLUME_DIR}/"
