@@ -33,11 +33,12 @@ eyupgurel/teamcity-android-agent:2017.2.2 bash /run-services.sh
 
 
 docker container run -d --name tmcdb -v ~/mount/postgres/teamcity/:/var/lib/postgresql/data \
---network bridge -p 5433:5432 \
+--network bridge -p 5432:5432 \
 -e POSTGRES_PASSWORD=eX933dISQSLT \
 -e shared_buffers=512MB \
 -e max_wal_size=1500MB \
 -e checkpoint_completion_target=0.9 \
 -e synchronous_commit=off \
 postgres:10.2
+
 
