@@ -19,7 +19,7 @@ pinfake/android-emulator-x11
 
 docker container run -d --name tmcs -v ~/Workspace/TeamCity/data/:/data/teamcity_server/datadir -v ~/Workspace/TeamCity/logs/:/opt/teamcity/logs \
 --network host -p 8111:8111 \
-eyupgurel/teamcity-android-server:2017.2.2
+eyupgurel/teamcity-server:2017.2.2
 
 #privileged is required to run docker in docker (i.e. if you want to build a container by docker build)
 docker container run -d --name tmca --privileged -v ~/Workspace/TeamCity/agent/:/data/teamcity_agent/conf \

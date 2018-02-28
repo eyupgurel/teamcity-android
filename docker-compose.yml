@@ -15,7 +15,7 @@ services:
       checkpoint_completion_target: 0.9
       synchronous_commit: 'off'
   tmcs:
-    image: eyupgurel/teamcity-android-server:2017.2.2
+    image: eyupgurel/teamcity-server:2017.2.2
     ports:
       - 8111:8111
     networks:
