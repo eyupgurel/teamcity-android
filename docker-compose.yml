@@ -1,40 +1,57 @@
 version: "3.3"
 services:
-  teamcity-db:
+  tmcdb:
     image: postgres:10.2
-    container_name: teamcity-db
     ports:
-      - "5432:5432"
+      - 5432:5432
+    networks:
+      - backend
     volumes:
-      - ${DB_DATA_PATH:-~/mount/postgres/teamcity/}:/var/lib/postgresql/data
+      - ~/mount/postgres/teamcity/:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: eX933dISQSLT
-  teamcity-server:
-    image: jetbrains/teamcity-server:2017.2.2
-    container_name: teamcity-server
+      shared_buffers: 512MB
+      max_wal_size: 1500MB
+      checkpoint_completion_target: 0.9
+      synchronous_commit: 'off'
+  tmcs:
+    image: eyupgurel/teamcity-android-server:2017.2.2
     ports:
-      - "8111:8111"
+      - 8111:8111
+    networks:
+      - backend
     volumes:
-      - ${DATA_PATH:-~/Workspace/TeamCity/data/}:/data/teamcity_server/datadir
-      - ${LOGS_PATH:-~/Workspace/TeamCity/logs/}:/opt/teamcity/logs
-  teamcity-agent:
+      - ~/Workspace/TeamCity/data/:/data/teamcity_server/datadir
+      - ~/Workspace/TeamCity/logs/:/opt/teamcity/logs
+  tmca:
     image: eyupgurel/teamcity-android-agent:2017.2.2
-    container_name: teamcity-agent
+    ports:
+      - 9090:9090
+    networks:
+      - backend
     devices:
-      - "/dev/bus/usb:/dev/bus/usb"
+      - /dev/bus/usb:/dev/bus/usb
     volumes:
-      - ${CONF_PATH:-~/Workspace/TeamCity/agent/}:/data/teamcity_agent/conf
+      - ~/Workspace/TeamCity/agent/:/data/teamcity_agent/conf
     environment:
-      - SERVER_URL=http://teamcity-server:8111
+      - SERVER_URL=http://tmcs:8111
+      - DOCKER_IN_DOCKER=start
+    command:
+      - bash /run-services.sh
+    privileged: true
   android-emulator:
     image: pinfake/android-emulator-x11
-    container_name: android-emulator
     ports:
-      - "5555:5555"
+      - 5554:5554
+    networks:
+      - backend
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - /usr/lib:/usr/lib
     environment:
       - DISPLAY=$DISPLAY
     privileged: true
+networks:
+  backend:
+
 

@@ -27,7 +27,6 @@ docker container run -d --name tmca --privileged -v ~/Workspace/TeamCity/agent/:
 --network host -p 9090:9090 \
 -e SERVER_URL=http://localhost:8111 \
 -e DOCKER_IN_DOCKER=start \
--e DOCKER_IN_DOCKER=start \
 eyupgurel/teamcity-android-agent:2017.2.2 bash /run-services.sh
 
 
