@@ -12,3 +12,4 @@ docker container ls -a
 docker network ls
 docker image ls
 
+
