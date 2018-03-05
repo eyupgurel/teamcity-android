@@ -107,9 +107,6 @@ RUN echo "installing ndk" && \
 # Please keep these in descending order!
 # The `yes` is for accepting all non-standard tool licenses.
 
-RUN echo "installing platform tools " && \
-    yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
-        "platform-tools"
 
 RUN echo "installing sdk tools " && \
     yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
@@ -118,11 +115,18 @@ RUN echo "installing sdk tools " && \
 RUN yes | "${ANDROID_HOME}"/tools/bin/sdkmanager --licenses > /dev/null && \
     echo "installing platforms" && \
     yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
-        "platforms;android-27"
+        "platforms;android-27" \
+        "platforms;android-26"
+
+RUN echo "installing platform tools " && \
+    yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
+        "platform-tools"
+
 
 RUN echo "installing build tools " && \
     yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
-        "build-tools;27.0.3"
+        "build-tools;27.0.3" \
+        "build-tools;26.0.3" "build-tools;26.0.2" "build-tools;26.0.1"
 
 RUN echo "installing cmake " && \
     yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
