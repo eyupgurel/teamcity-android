@@ -8,9 +8,6 @@ docker container stop tmcs
 
 docker container stop tmcdb
 
-docker container update --restart no android-emulator
-docker container stop android-emulator
-
 docker container ls -a
 docker network ls
 docker image ls

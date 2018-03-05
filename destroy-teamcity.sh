@@ -9,8 +9,6 @@ docker container rm -f tmcs
 
 docker container rm -f tmcdb
 
-docker container rm -f android-emulator
-
 #docker network rm sun
 
 docker container ls -a
