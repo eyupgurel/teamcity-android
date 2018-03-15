@@ -1,10 +1,10 @@
 # saved commands
 docker container run -d --name teamcity-server -v ~/Workspace/TeamCity/data/:/data/teamcity_server/datadir -v ~/Workspace/TeamCity/logs/:/opt/teamcity/logs -p 8111:8111 \
---network host jetbrains/teamcity-server:2017.2.2
+--network host jetbrains/teamcity-server:2017.2.3
     
 docker container run -d --name teamcity-agent -v ~/Workspace/TeamCity/agent/:/data/teamcity_agent/conf \
 --device /dev/bus/usb:/dev/bus/usb --network host \
--e SERVER_URL=http://localhost:8111 eyupgurel/teamcity-android-agent:2017.2.2
+-e SERVER_URL=http://localhost:8111 eyupgurel/teamcity-android-node-agent:2017.2.3
 
 docker container run -d --name teamcity-db -v ~/mount/postgres/teamcity/:/var/lib/postgresql/data \
 --network host -p 5432:5432 -e POSTGRES_PASSWORD=eX933dISQSLT postgres:10.2   
@@ -29,7 +29,7 @@ TeamCity server &amp; agent containers for painless setup with Docker for Androi
 
 ```bash
 export SERVER_URL=http://<TEAMCITY_SERVER_URL>:8111
-docker build -t teamcity-android-agent .
+docker build -t teamcity-android-node-agent .
 docker-compose up teamcity-server teamcity-agent
 ```
 
@@ -52,6 +52,6 @@ export LOGS_PATH=<TEAMCITY_LOGS_DIR>
 export CONF_PATH=<AGENT_CONF_DIR>
 
 # build provided image & start docker containers
-docker build -t teamcity-android-agent .
+docker build -t teamcity-android-node-agent .
 docker-compose up teamcity-server teamcity-agent
 ```

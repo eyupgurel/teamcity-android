@@ -1,4 +1,4 @@
-FROM eyupgurel/teamcity-agent:2017.2.2
+FROM eyupgurel/teamcity-minimal-agent:2017.2.3
 
 MAINTAINER Eyüp Gürel <eyupgurel@gmail.com>
 
@@ -115,8 +115,8 @@ RUN echo "installing sdk tools " && \
 RUN yes | "${ANDROID_HOME}"/tools/bin/sdkmanager --licenses > /dev/null && \
     echo "installing platforms" && \
     yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
-        "platforms;android-27" \
-        "platforms;android-26"
+        "platforms;android-27"
+#       "platforms;android-26" append other platforms in decreasing order if needed for legacy builds
 
 RUN echo "installing platform tools " && \
     yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
@@ -125,8 +125,8 @@ RUN echo "installing platform tools " && \
 
 RUN echo "installing build tools " && \
     yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
-        "build-tools;27.0.3" \
-        "build-tools;26.0.3" "build-tools;26.0.2" "build-tools;26.0.1"
+        "build-tools;27.0.3"
+#       "build-tools;26.0.3" "build-tools;26.0.2" "build-tools;26.0.1" append other build-tools versions in decreasing order if needed for legacy builds
 
 RUN echo "installing cmake " && \
     yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
@@ -177,4 +177,5 @@ RUN apt-get install -y iputils-ping
 # 1) makedir for the mysqld volume
 ENV MYSQL_VOLUME_DIR="/opt/volume/mysql/"
 RUN mkdir -p "${MYSQL_VOLUME_DIR}"
+# you should replace below line with your own empty test db schema
 COPY schema/FantasyLeague-Schema-2018.02.08.sql "${MYSQL_VOLUME_DIR}/"

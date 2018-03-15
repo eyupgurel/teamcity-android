@@ -16,11 +16,11 @@ docker container run -d --name tmcdb -v ~/mount/postgres/teamcity/:/var/lib/post
 -e max_wal_size=1500MB \
 -e checkpoint_completion_target=0.9 \
 -e synchronous_commit=off \
-postgres:10.2
+postgres:10.3
 
 docker container run -d --name tmcs -v ~/Workspace/TeamCity/data/:/data/teamcity_server/datadir -v ~/Workspace/TeamCity/logs/:/opt/teamcity/logs \
 --network host -p 8111:8111 \
-eyupgurel/teamcity-server:2017.2.2
+eyupgurel/teamcity-server:2017.2.3
 
 #privileged is required to run docker in docker (i.e. if you want to build a container by docker build)
 docker container run -d --name tmca --privileged -v ~/Workspace/TeamCity/agent/:/data/teamcity_agent/conf \
@@ -28,7 +28,7 @@ docker container run -d --name tmca --privileged -v ~/Workspace/TeamCity/agent/:
 --network host -p 9090:9090 \
 -e SERVER_URL=http://localhost:8111 \
 -e DOCKER_IN_DOCKER=start \
-eyupgurel/teamcity-android-agent:2017.2.2 bash /run-services.sh
+eyupgurel/teamcity-android-node-agent:2017.2.3 bash /run-services.sh
 
 
 

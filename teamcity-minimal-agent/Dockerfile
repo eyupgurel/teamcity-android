@@ -1,4 +1,4 @@
-FROM jetbrains/teamcity-minimal-agent:latest
+FROM jetbrains/teamcity-minimal-agent:2017.2.3
 
 MAINTAINER Eyüp Gürel <eyupgurel@gmail.com>
 

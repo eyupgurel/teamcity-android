@@ -15,7 +15,7 @@ services:
       checkpoint_completion_target: 0.9
       synchronous_commit: 'off'
   tmcs:
-    image: eyupgurel/teamcity-server:2017.2.2
+    image: eyupgurel/teamcity-server:2017.2.3
     ports:
       - 8111:8111
     networks:
@@ -24,7 +24,7 @@ services:
       - ~/Workspace/TeamCity/data/:/data/teamcity_server/datadir
       - ~/Workspace/TeamCity/logs/:/opt/teamcity/logs
   tmca:
-    image: eyupgurel/teamcity-android-agent:2017.2.2
+    image: eyupgurel/teamcity-android-node-agent:2017.2.3
     ports:
       - 9090:9090
     networks:
