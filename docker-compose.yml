@@ -23,7 +23,7 @@ services:
     volumes:
       - ~/Workspace/TeamCity/data/:/data/teamcity_server/datadir
       - ~/Workspace/TeamCity/logs/:/opt/teamcity/logs
-  tmca:
+  tmca1:
     image: eyupgurel/teamcity-android-node-agent:2017.2.3
     ports:
       - 9090:9090
@@ -32,13 +32,31 @@ services:
     devices:
       - /dev/bus/usb:/dev/bus/usb
     volumes:
-      - ~/Workspace/TeamCity/agent/:/data/teamcity_agent/conf
+      - ~/Workspace/TeamCity/agent/heavypack/:/data/teamcity_agent/conf
     environment:
       - SERVER_URL=http://tmcs:8111
       - DOCKER_IN_DOCKER=start
+      - AGENT_NAME=heavypack
     command:
       - bash /run-services.sh
     privileged: true
+  tmca2:
+      image: eyupgurel/teamcity-android-node-agent:2017.2.3
+      ports:
+        - 9091:9090
+      networks:
+        - backend
+      devices:
+        - /dev/bus/usb:/dev/bus/usb
+      volumes:
+        - ~/Workspace/TeamCity/agent/booster/:/data/teamcity_agent/conf
+      environment:
+        - SERVER_URL=http://tmcs:8111
+        - DOCKER_IN_DOCKER=start
+        - AGENT_NAME=booster
+      command:
+        - bash /run-services.sh
+      privileged: true
   android-emulator:
     image: pinfake/android-emulator-x11
     ports:

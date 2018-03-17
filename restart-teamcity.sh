@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-docker container restart tmca
+docker container restart tmca1
+
+docker container restart tmca2
 
 docker container restart tmcs
 
