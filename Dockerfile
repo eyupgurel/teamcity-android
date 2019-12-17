@@ -1,5 +1,4 @@
-FROM eyupgurel/teamcity-minimal-agent:2017.2.3
-
+FROM eyupgurel/teamcity-minimal-agent:2019.2
 MAINTAINER Eyüp Gürel <eyupgurel@gmail.com>
 
 ENV ANDROID_HOME="/opt/Android/Sdk" \
@@ -11,13 +10,13 @@ ENV ANDROID_SDK_ROOT=${ANDROID_HOME}
 ENV ANDROID_AVD_HOME="${ANDROID_HOME}/.android/avd"
 
 # Get the latest version from https://developer.android.com/studio/index.html
-ENV ANDROID_SDK_TOOLS_VERSION="3859397"
+ENV ANDROID_SDK_TOOLS_VERSION="4333796"
 
 # Get the latest version from https://developer.android.com/ndk/downloads/index.html
-ENV ANDROID_NDK_VERSION="16b"
+ENV ANDROID_NDK_VERSION="20b"
 
 # nodejs version
-ENV NODE_VERSION="9.x"
+ENV NODE_VERSION="13.x"
 
 # Set locale
 ENV LANG="en_US.UTF-8" \
@@ -64,7 +63,6 @@ RUN apt-get update -qq > /dev/null && \
         openjdk-8-jdk \
         openssh-client \
         pkg-config \
-        python-software-properties \
         software-properties-common \
         vim \
         unzip \
@@ -115,6 +113,8 @@ RUN echo "installing sdk tools " && \
 RUN yes | "${ANDROID_HOME}"/tools/bin/sdkmanager --licenses > /dev/null && \
     echo "installing platforms" && \
     yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
+        "platforms;android-29" \
+        "platforms;android-28" \
         "platforms;android-27"
 #       "platforms;android-26" append other platforms in decreasing order if needed for legacy builds
 
@@ -125,12 +125,18 @@ RUN echo "installing platform tools " && \
 
 RUN echo "installing build tools " && \
     yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
+        "build-tools;29.0.2" \
+        "build-tools;28.0.3" \
         "build-tools;27.0.3"
 #       "build-tools;26.0.3" "build-tools;26.0.2" "build-tools;26.0.1" append other build-tools versions in decreasing order if needed for legacy builds
 
+RUN echo "patcher " && \
+    yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
+        "patcher;v4"
+
 RUN echo "installing cmake " && \
     yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
-        "cmake;3.6.4111459"
+        "cmake;3.10.2.4988404"
 
 RUN echo "installing extras " && \
     yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
@@ -150,16 +156,36 @@ RUN echo "installing play services " && \
 
 RUN echo "installing constraints " && \
     yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
-        "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2" \
-        "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
+        "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2" \
+        "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
 
 RUN echo "installing lldb " && \
     yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
-        "lldb;3.0"
+        "lldb;3.1"
 
-RUN echo "patcher " && \
+RUN echo "NDK" && \
     yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
-        "patcher;v4"
+        "ndk-bundle"
+
+RUN echo "NDK (Side by side) 20.1.5948944" && \
+    yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
+        "ndk;20.1.5948944"
+
+
+
+RUN echo "Android Emulator" && \
+    yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
+        "emulator"
+
+RUN echo "Google Play Intel x86 Atom_64 System Image" && \
+    yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
+        "system-images;android-29;google_apis_playstore;x86_64"
+
+
+RUN echo "Google APIs" && \
+    yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
+        "add-ons;addon-google_apis-google-24"
+
 
 # Installing packages
 RUN apt-get update

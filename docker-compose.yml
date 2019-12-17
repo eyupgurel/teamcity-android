@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   tmcdb:
-    image: postgres:10.2
+    image: postgres:10.4
     ports:
       - 5432:5432
     networks:
@@ -15,7 +15,7 @@ services:
       checkpoint_completion_target: 0.9
       synchronous_commit: 'off'
   tmcs:
-    image: eyupgurel/teamcity-server:2017.2.3
+    image: eyupgurel/teamcity-server:2018.1
     ports:
       - 8111:8111
     networks:
@@ -24,7 +24,7 @@ services:
       - ~/Workspace/TeamCity/data/:/data/teamcity_server/datadir
       - ~/Workspace/TeamCity/logs/:/opt/teamcity/logs
   tmca1:
-    image: eyupgurel/teamcity-android-node-agent:2017.2.3
+    image: eyupgurel/teamcity-android-node-agent:2018.1
     ports:
       - 9090:9090
     networks:
@@ -41,7 +41,7 @@ services:
       - bash /run-services.sh
     privileged: true
   tmca2:
-      image: eyupgurel/teamcity-android-node-agent:2017.2.3
+      image: eyupgurel/teamcity-android-node-agent:2018.1
       ports:
         - 9091:9090
       networks:
