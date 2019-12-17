@@ -1,4 +1,4 @@
-FROM jetbrains/teamcity-minimal-agent:2017.2.3
+FROM jetbrains/teamcity-minimal-agent:2019.2
 
 MAINTAINER Eyüp Gürel <eyupgurel@gmail.com>
 
@@ -14,14 +14,12 @@ RUN apt-get update && \
     \
     curl -fsSL get.docker.com -o get-docker.sh && \
     sh get-docker.sh && \
-    systemctl enable docker && \
     \
     apt-get install -y --no-install-recommends \
             libc6 \
             libcurl3 \
             libgcc1 \
             libgssapi-krb5-2 \
-            libicu55 \
             liblttng-ust0 \
             libssl1.0.0 \
             libstdc++6 \
