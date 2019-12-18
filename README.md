@@ -1,10 +1,10 @@
 # saved commands
 docker container run -d --name teamcity-server -v ~/Workspace/TeamCity/data/:/data/teamcity_server/datadir -v ~/Workspace/TeamCity/logs/:/opt/teamcity/logs -p 8111:8111 \
---network host jetbrains/teamcity-server:2018.1
+--network host jetbrains/teamcity-server:2019.2
     
 docker container run -d --name teamcity-agent -v ~/Workspace/TeamCity/agent/:/data/teamcity_agent/conf \
 --device /dev/bus/usb:/dev/bus/usb --network host \
--e SERVER_URL=http://localhost:8111 eyupgurel/teamcity-android-node-agent:2018.1
+-e SERVER_URL=http://localhost:8111 eyupgurel/teamcity-android-node-agent:2019.2
 
 docker container run -d --name teamcity-db -v ~/mount/postgres/teamcity/:/var/lib/postgresql/data \
 --network host -p 5432:5432 -e POSTGRES_PASSWORD=eX933dISQSLT postgres:10.2   
