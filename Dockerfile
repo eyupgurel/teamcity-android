@@ -113,9 +113,9 @@ RUN echo "installing sdk tools " && \
 RUN yes | "${ANDROID_HOME}"/tools/bin/sdkmanager --licenses > /dev/null && \
     echo "installing platforms" && \
     yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
-        "platforms;android-29" \
-        "platforms;android-28" \
-        "platforms;android-27"
+        "platforms;android-29"
+#        "platforms;android-28" \
+#        "platforms;android-27"
 #       "platforms;android-26" append other platforms in decreasing order if needed for legacy builds
 
 RUN echo "installing platform tools " && \
@@ -125,9 +125,9 @@ RUN echo "installing platform tools " && \
 
 RUN echo "installing build tools " && \
     yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
-        "build-tools;29.0.2" \
-        "build-tools;28.0.3" \
-        "build-tools;27.0.3"
+        "build-tools;29.0.2"
+#        "build-tools;28.0.3" \
+#        "build-tools;27.0.3"
 #       "build-tools;26.0.3" "build-tools;26.0.2" "build-tools;26.0.1" append other build-tools versions in decreasing order if needed for legacy builds
 
 RUN echo "patcher " && \
@@ -159,27 +159,27 @@ RUN echo "installing constraints " && \
         "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2" \
         "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
 
-RUN echo "installing lldb " && \
-    yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
-        "lldb;3.1"
+#RUN echo "installing lldb " && \
+#    yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
+#        "lldb;3.1"
 
-RUN echo "NDK" && \
-    yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
-        "ndk-bundle"
+#RUN echo "NDK" && \
+#    yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
+#        "ndk-bundle"
+#
+#RUN echo "NDK (Side by side) 20.1.5948944" && \
+#    yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
+#        "ndk;20.1.5948944"
 
-RUN echo "NDK (Side by side) 20.1.5948944" && \
-    yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
-        "ndk;20.1.5948944"
 
 
-
-RUN echo "Android Emulator" && \
-    yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
-        "emulator"
-
-RUN echo "Google Play Intel x86 Atom_64 System Image" && \
-    yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
-        "system-images;android-29;google_apis_playstore;x86_64"
+#RUN echo "Android Emulator" && \
+#    yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
+#        "emulator"
+#
+#RUN echo "Google Play Intel x86 Atom_64 System Image" && \
+#    yes | "${ANDROID_HOME}"/tools/bin/sdkmanager \
+#        "system-images;android-29;google_apis_playstore;x86_64"
 
 
 RUN echo "Google APIs" && \

@@ -7,6 +7,8 @@ docker container rm -f tmca1
 
 docker container rm -f tmca2
 
+docker container rm -f tmca3
+
 docker container rm -f tmcs
 
 docker container rm -f tmcdb

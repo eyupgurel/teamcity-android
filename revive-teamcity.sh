@@ -8,6 +8,10 @@ docker container start tmca2
 
 docker container exec tmca2 /services/run-docker.sh
 
+docker container start tmca3
+
+docker container exec tmca3 /services/run-docker.sh
+
 docker container start tmcs
 
 docker container start tmcdb

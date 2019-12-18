@@ -6,6 +6,7 @@ mkdir ~/Workspace/TeamCity/data/ --parents
 mkdir ~/Workspace/TeamCity/logs/ --parents
 mkdir ~/Workspace/TeamCity/agent/heavypack/ --parents
 mkdir ~/Workspace/TeamCity/agent/booster/ --parents
+mkdir ~/Workspace/TeamCity/agent/connoisseur/ --parents
 mkdir ~/mount/postgres/teamcity/ --parents
 
 #docker network create sun
@@ -52,4 +53,13 @@ docker container run -d --name tmca2 --privileged -v ~/Workspace/TeamCity/agent/
 -e AGENT_NAME=booster \
 -e SERVER_URL=http://localhost:8111 \
 -e DOCKER_IN_DOCKER=start \
-eyupgurel/teamcity-android-node-agent:2019.2 bash /run-services.sh
+eyupgurel/teamcity-node-agent:2019.2 bash /run-services.sh
+
+#privileged is required to run docker in docker (i.e. if you want to build a container by docker build)
+docker container run -d --name tmca3 --privileged -v ~/Workspace/TeamCity/agent/connoisseur/:/data/teamcity_agent/conf \
+--device /dev/bus/usb:/dev/bus/usb \
+--network host -p 9092:9090 \
+-e AGENT_NAME=connoisseur \
+-e SERVER_URL=http://localhost:8111 \
+-e DOCKER_IN_DOCKER=start \
+eyupgurel/teamcity-node-agent:2019.2 bash /run-services.sh
