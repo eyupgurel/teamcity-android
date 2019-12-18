@@ -68,7 +68,7 @@ RUN apt-get install -y iputils-ping
 
 # in order to run a mysql container inside this container we need to
 # 1) makedir for the mysqld volume
-ENV MYSQL_VOLUME_DIR="/opt/volume/mysql/"
+ENV MYSQL_VOLUME_DIR="/opt/volume/mysql/test/"
 RUN mkdir -p "${MYSQL_VOLUME_DIR}"
 # you should replace below line with your own empty test db schema
 COPY schema/FantasyLeague-Schema-2018.02.08.sql "${MYSQL_VOLUME_DIR}/"
