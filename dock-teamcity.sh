@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# parameters:
+sh destroy-teamcity.sh
 
+# parameters:
 #if absent make volumes directories
 mkdir ~/Workspace/TeamCity/data/ --parents
 mkdir ~/Workspace/TeamCity/logs/ --parents
