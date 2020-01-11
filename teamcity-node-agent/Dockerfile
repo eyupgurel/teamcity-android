@@ -71,4 +71,4 @@ RUN apt-get install -y iputils-ping
 ENV MYSQL_VOLUME_DIR="/opt/volume/mysql/test/"
 RUN mkdir -p "${MYSQL_VOLUME_DIR}"
 # you should replace below line with your own empty test db schema
-COPY schema/FantasyLeague-Schema-2018.02.08.sql "${MYSQL_VOLUME_DIR}/"
+COPY schema/FantasyLeague-Schema-2020.01.11.sql "${MYSQL_VOLUME_DIR}/"
